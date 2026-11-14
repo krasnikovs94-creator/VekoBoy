@@ -1,6 +1,16 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="screen-orientation" content="landscape"><meta name="theme-color" content="#172c2d"><title>ВеткоБой — Деревенская битва</title><style>
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="screen-orientation" content="landscape"><meta name="theme-color" content="#172c2d"><link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22%D0%92%D0%B5%D1%82%D0%BA%D0%BE%D0%91%D0%BE%D0%B9%22%2C%22short_name%22%3A%22%D0%92%D0%B5%D1%82%D0%BA%D0%BE%D0%91%D0%BE%D0%B9%22%2C%22start_url%22%3A%22./%22%2C%22display%22%3A%22fullscreen%22%2C%22orientation%22%3A%22landscape%22%2C%22background_color%22%3A%22%23142c2c%22%2C%22theme_color%22%3A%22%23142c2c%22%7D"><title>ВеткоБой — Деревенская битва</title><style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#88c6db;font-family:system-ui,-apple-system,sans-serif;color:#fff;touch-action:none}#game{position:fixed;inset:0;width:100%;height:100%;display:block}button{border:0;cursor:pointer;font:800 15px system-ui;color:#26331e;background:linear-gradient(#ffe39b,#efb94d);border-radius:14px;padding:12px 17px;box-shadow:0 5px 0 #8f652a,0 9px 20px #0005;touch-action:manipulation}button:active{transform:translateY(3px);box-shadow:0 2px 0 #8f652a}button:disabled{opacity:.55}.screen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(110deg,#10282ac9,#102b29b5);z-index:5;overflow:auto;padding:10px}.hide{display:none!important}.panel{width:min(96vw,600px);max-height:96dvh;overflow:auto;background:linear-gradient(140deg,#274c43f5,#132e2df5);border:2px solid #d8c18a88;border-radius:23px;padding:clamp(12px,3vw,24px);box-shadow:0 25px 90px #0009}.panel h1{font-size:clamp(29px,6vw,47px);line-height:1;margin:4px 0 10px;color:#ffe0a0;text-shadow:0 4px #573c1f}.panel h2{margin:0 0 12px;color:#ffdf97}.panel p{color:#e3ece4;margin:8px 0}.menuBtns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:17px 0}.menuBtns button:last-child{grid-column:span 2;background:linear-gradient(#a8f5aa,#55c873);box-shadow:0 5px #267b3a}.stat{font-weight:700;color:#ffe7ae}.small{font-size:12px;opacity:.8}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.crate{border:1px solid #ffffff40;border-radius:14px;padding:9px;background:linear-gradient(145deg,#ffffff20,#00000020);text-align:center}.crate svg{width:100%;height:82px;filter:drop-shadow(0 5px 3px #0008)}.crate strong{display:block;font-size:12px;min-height:32px}.crate button{font-size:12px;padding:8px 5px;width:100%;margin-top:5px}.row{padding:9px;border-bottom:1px solid #ffffff30}.row button{float:right;padding:6px 12px}.back{margin-top:14px}input{font:inherit;width:100%;padding:12px;border:0;border-radius:10px}#hud{position:fixed;inset:0;pointer-events:none;z-index:3}#top{position:absolute;top:max(8px,env(safe-area-inset-top));left:10px;right:10px;display:flex;justify-content:space-between;gap:8px;text-shadow:0 2px 5px #000;font-weight:900;font-size:clamp(12px,2.5vw,18px)}#cross{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:32px;color:#fff;filter:drop-shadow(0 1px 3px black)}#stick{position:absolute;left:5%;bottom:12%;width:116px;height:116px;border:3px solid #ffffff88;border-radius:50%;background:#ffffff30;pointer-events:auto;touch-action:none}#nub{position:absolute;width:46px;height:46px;left:32px;top:32px;border-radius:50%;background:#ffdd92b8;border:2px solid #fff9}#shoot{position:absolute;right:5%;bottom:12%;width:90px;height:90px;border-radius:50%;background:linear-gradient(#ffd681,#f7a43e);border:3px solid #fff9;pointer-events:auto}#jump{position:absolute;right:7%;bottom:40%;pointer-events:auto;background:#dff8f0}#pause{position:absolute;right:10px;top:48px;pointer-events:auto;padding:8px 12px}#reload{position:absolute;right:27%;bottom:14%;pointer-events:auto;padding:9px 12px;background:#e8e9d5}#toast{position:fixed;top:20%;left:50%;transform:translateX(-50%);z-index:9;background:#142b2be8;border:1px solid #ffdf94;border-radius:12px;padding:9px 15px;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}#toast.on{opacity:1}#flash{position:fixed;inset:0;background:#e14c3666;pointer-events:none;z-index:2;opacity:0}#loading{position:fixed;inset:0;background:#142c2c;color:white;display:flex;align-items:center;justify-content:center;z-index:20;text-align:center;padding:20px}#loading div{max-width:350px}#fullscreen{position:absolute;left:10px;top:48px;pointer-events:auto;padding:8px 12px}#rotateHint{position:fixed;inset:0;z-index:15;background:#10292ef5;display:none;align-items:center;justify-content:center;text-align:center;padding:24px;font-size:21px;font-weight:800}#rotateHint span{display:block;font-size:48px;margin-bottom:15px}@media(orientation:portrait) and (pointer:coarse){body.playing #rotateHint{display:flex}}@media(orientation:landscape){#top{left:max(10px,env(safe-area-inset-left));right:max(10px,env(safe-area-inset-right))}#stick{left:max(4%,env(safe-area-inset-left))}#shoot{right:max(5%,env(safe-area-inset-right))}}#quality{position:absolute;bottom:5px;right:10px;color:#fffc;font-size:10px;text-shadow:0 2px 4px #000}@media(max-height:470px){.panel{max-width:650px}.panel h1{font-size:27px}.menuBtns{margin:7px 0}.menuBtns button{padding:8px}.panel p{margin:4px 0}.grid svg{height:58px}#stick{bottom:8%;width:92px;height:92px}#nub{left:23px;top:23px;width:40px;height:40px}#shoot{bottom:8%;width:75px;height:75px}#jump{bottom:40%}}
-</style></head><body><div id="loading"><div><h2>🌿 ВеткоБой 4.4</h2><p id="loadtext">Загружаем трёхмерный мир…</p></div></div><canvas id="game"></canvas><div id="flash"></div><div id="hud" class="hide"><div id="top"><span id="hp">❤️ 100</span><span id="kills">🎯 0 / 20</span><span id="time">⏱ 05:00</span><span id="ammo">🌰 12/12</span></div><div id="cross">＋</div><div id="stick"><div id="nub"></div></div><button id="shoot">ОГОНЬ</button><button id="jump">ПРЫЖОК</button><button id="reload">↻</button><button id="pause">Ⅱ</button><button id="fullscreen" aria-label="Полный экран">⛶</button><div id="quality">3D • адаптивная графика</div></div><div id="rotateHint"><div><span>📱 ↻</span>Поверни телефон горизонтально<br><small>Для удобной игры на весь экран</small></div></div><div id="toast"></div><div id="menu" class="screen hide"><div class="panel"><h1>🌿 ВЕТКОБОЙ</h1><p>Деревенская битва · 3D</p><p class="stat">👤 <span id="nick"></span>　🪙 <span id="coins"></span></p><div class="menuBtns"><button data-page="profile">👤 НИК</button><button data-page="inventory">🎒 ИНВЕНТАРЬ</button><button data-page="shop">📦 МАГАЗИН</button><button data-page="settings">⚙ НАСТРОЙКИ</button><button id="play">▶ ИГРАТЬ</button></div><p class="small">6 ботов • 5 минут • 20 попаданий для победы • левый джойстик + правый обзор</p></div></div><div id="sub" class="screen hide"><div class="panel" id="subcontent"></div></div><div id="end" class="screen hide"><div class="panel"><h1 id="endtitle">Матч окончен</h1><p id="endstats"></p><button id="again">Играть снова</button> <button id="toMenu">В меню</button></div></div>
+@media (orientation:landscape) and (pointer:coarse){
+#stick{width:88px;height:88px;bottom:7%;left:max(3%,env(safe-area-inset-left))}
+#nub{width:36px;height:36px;left:23px;top:23px}
+#shoot{width:70px;height:70px;bottom:7%;right:max(3%,env(safe-area-inset-right));font-size:12px;padding:4px}
+#jump{right:3%;bottom:37%;padding:9px 12px;font-size:12px}
+#reload{right:22%;bottom:9%;padding:8px 10px}
+#top{font-size:clamp(12px,2vw,17px);top:max(4px,env(safe-area-inset-top))}
+#pause,#fullscreen{top:37px;padding:6px 9px}
+#quality{display:none}}
+html,body{height:100%;height:100dvh}#game,#hud,.screen{height:100%;height:100dvh}
+</style></head><body><div id="loading"><div><h2>🌿 ВеткоБой 5.8</h2><p id="loadtext">Загружаем трёхмерный мир…</p></div></div><canvas id="game"></canvas><div id="flash"></div><div id="hud" class="hide"><div id="top"><span id="hp">❤️ 100</span><span id="kills">🎯 0 / 20</span><span id="time">⏱ 05:00</span><span id="ammo">🌰 12/12</span></div><div id="cross">＋</div><div id="stick"><div id="nub"></div></div><button id="shoot">ОГОНЬ</button><button id="jump">ПРЫЖОК</button><button id="reload">↻</button><button id="pause">Ⅱ</button><button id="fullscreen" aria-label="Полный экран">⛶</button><div id="quality">3D • адаптивная графика</div></div><div id="rotateHint"><div><span>📱 ↻</span>Поверни телефон горизонтально<br><small>Для удобной игры на весь экран</small></div></div><div id="toast"></div><div id="menu" class="screen hide"><div class="panel"><h1>🌿 ВЕТКОБОЙ</h1><p>Деревенская битва · 3D</p><p class="stat">👤 <span id="nick"></span>　🪙 <span id="coins"></span></p><div class="menuBtns"><button data-page="profile">👤 НИК</button><button data-page="inventory">🎒 ИНВЕНТАРЬ</button><button data-page="shop">📦 МАГАЗИН</button><button data-page="settings">⚙ НАСТРОЙКИ</button><button id="play">▶ ИГРАТЬ</button></div><p class="small">6 ботов • 5 минут • 20 попаданий для победы • левый джойстик + правый обзор</p></div></div><div id="sub" class="screen hide"><div class="panel" id="subcontent"></div></div><div id="end" class="screen hide"><div class="panel"><h1 id="endtitle">Матч окончен</h1><p id="endstats"></p><button id="again">Играть снова</button> <button id="toMenu">В меню</button></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.152.2/three.min.js"></script><script>
 (()=>{'use strict';const $=id=>document.getElementById(id);if(!window.THREE){$('loadtext').textContent='Не удалось загрузить 3D-движок. Проверь подключение к интернету и обнови страницу.';return}const T=THREE;let renderer;try{renderer=new T.WebGLRenderer({canvas:$('game'),antialias:true,powerPreference:'high-performance'});}catch(e){$('loadtext').textContent='WebGL недоступен в этом браузере: '+e.message;return}renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.5));renderer.setSize(innerWidth,innerHeight);renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMappingExposure=1.12;const scene=new T.Scene();scene.background=new T.Color(0x9bd7f2);const camera=new T.PerspectiveCamera(76,innerWidth/innerHeight,.08,160);// 5.7: GPU sky gradient with a soft warm horizon and a directional sun glow.
 // Sky follows the camera so its apparent distance remains constant.
@@ -82,89 +92,48 @@ function ground(){
  const hillMat=mat(0x769b72),hillMat2=mat(0x648d70);
  for(let k=0;k<26;k++){
    let angle=k*Math.PI*2/26,rad=98+rr(-6,6),height=rr(14,27);
-   let hill=new T.Mesh(new T.ConeGeometry(rr(15,24),height,5),k%3?hillMat:hillMat2);
+   let hill=new T.Mesh(new T.SphereGeometry(1,12,7),k%3?hillMat:hillMat2);hill.scale.set(rr(16,24),height*.48,rr(9,15));
    hill.position.set(Math.cos(angle)*rad,height*.36-2,Math.sin(angle)*rad);
    hill.rotation.y=angle;hill.castShadow=false;hill.receiveShadow=false;scene.add(hill);
  }
-}const matFlowerA=mat(0xffd977),matFlowerB=mat(0xf3e7ed);ground();const obstacles=[];function house(x,z,w=7,d=6,roof=mats.roof,wall=mats.wall){const h=rr(4,5.5);box(x,h/2,z,w,h,d,wall);// A true pitched roof: two sloping shingled surfaces and timber ridge.
-const roofRise=2.05,roofHalf=w/2+.55,roofDepth=d+1.05;
-const roofSlope=Math.atan2(roofRise,roofHalf),roofSpan=Math.hypot(roofHalf,roofRise);
-for(const side of [-1,1]){
- const panel=box(x+side*roofHalf/2,h+roofRise/2,z,roofSpan+.2,.15,roofDepth,roof);
- panel.rotation.z=-side*roofSlope;
-}
-box(x,h+roofRise+.035,z,.24,.2,roofDepth+.12,mats.wood2);
-// Eaves fascia and shadow line on both long sides, plus structural beam ends.
-for(const side of [-1,1]){
- box(x+side*(w/2+.38),h-.04,z,.13,.18,roofDepth,mats.wood2);
- for(const end of [-1,1])box(x+side*(w/2+.28),h-.12,z+end*(d/2+.48),.26,.27,.18,mats.wood);
-}
-
-// Gable infill and visible timber bracing on both ends.
-for(const end of [-1,1]){
- const faceZ=z+end*(d/2+.018);
- const verts=new Float32Array([x-w/2,h,faceZ, x+w/2,h,faceZ, x,h+roofRise,faceZ]);
- const g=new T.BufferGeometry();g.setAttribute('position',new T.BufferAttribute(verts,3));g.computeVertexNormals();
- const infill=new T.Mesh(g,new T.MeshStandardMaterial({color:0xd5b28a,roughness:1,side:T.DoubleSide}));infill.receiveShadow=true;scene.add(infill);
- rod(new T.Vector3(x-w/2,h,faceZ+end*.05),new T.Vector3(x,h+roofRise,faceZ+end*.05),.07,mats.wood2);
- rod(new T.Vector3(x+w/2,h,faceZ+end*.05),new T.Vector3(x,h+roofRise,faceZ+end*.05),.07,mats.wood2);
-}
-box(x,h*.48,z+d/2+.045,1.4,2.5,.12,mats.wood);
-box(x,h*.48,z+d/2+.117,1.15,2.18,.025,mats.wood2);
-box(x+.47,h*.43,z+d/2+.15,.085,.085,.08,mats.gold);
-box(x,h*.48+1.3,z+d/2+.17,1.65,.13,.18,mats.wood2);for(let dx of [-w*.27,w*.27]){box(x+dx,h*.68,z+d/2+.08,1.15,1.2,.1,mats.glass);box(x+dx,h*.68,z+d/2+.14,.1,1.3,.14,mats.wood);box(x+dx,h*.68,z+d/2+.14,1.3,.1,.14,mats.wood)}for(let j=0;j<7;j++){box(x-w/2+.6+j*(w-1.2)/6,h*.22,z+d/2+.13,.055,.055,.09,mats.wood2)}box(x,h-.3,z+d/2+.15,w,.15,.2,mats.wood2);
-// Architectural detail: stone foundation, chimney, porch steps, side windows and roof beams.
-box(x,.27,z,w+.25,.54,d+.25,mats.stone);
-box(x+w*.25,h+1.65,z-d*.12,.8,2.3,.85,mats.wood2);
-box(x+w*.25,h+2.84,z-d*.12,1.04,.18,1.08,mats.stone);
-for(const side of [-1,1]){
- box(x+side*(w/2+.07),h*.57,z,.14,1.25,1.25,mats.glass);
- box(x+side*(w/2+.16),h*.57,z,.16,1.38,.11,mats.wood2);
- box(x+side*(w/2+.16),h*.57,z,.16,.11,1.42,mats.wood2);
-}
-for(let k=0;k<3;k++)box(x,.13+k*.13,z+d/2+.45+k*.26,2.2-k*.12,.26,.5,mats.stone);
-for(let k=0;k<4;k++){let xx=x-w/2+.4+k*(w-.8)/3;box(xx,h+.12,z+d/2+.09,.14,.2,.3,mats.wood2)}// Door frame, lintel, raised sill and corner timber joints.
-for(const side of [-1,1]){box(x+side*.78,h*.48,z+d/2+.19,.11,2.62,.18,mats.wood2);box(x+side*(w/2-.12),h*.5,z+d/2+.13,.18,h*.94,.2,mats.wood2)}
-box(x,h*.48+1.31,z+d/2+.2,1.65,.13,.2,mats.wood2);
-box(x,h*.68-.68,z+d/2+.22,w*.66,.09,.23,mats.wood2);
-sphere(x+.4,h*.45,z+d/2+.23,.065,mats.gold);
-
-// 5.7: readable stylized silhouettes: roof courses, shutters, porch canopy and facade ornament.
-// Tile courses are grouped in two InstancedMeshes per building, minimizing draw calls.
-const tileGeo=new T.BoxGeometry(.11,.055,1);
-const tileMat=new T.MeshStandardMaterial({color:0x70503f,roughness:.92,metalness:0});
-for(const side of [-1,1]){
- const count=8*6,tiles=new T.InstancedMesh(tileGeo,tileMat,count);
- const dummy=new T.Object3D();let n=0;
- for(let row=0;row<8;row++)for(let col=0;col<6;col++){
-   const slopeX=(row+.45)/8*roofHalf;
-   dummy.position.set(x+side*slopeX,h+roofRise*(1-slopeX/roofHalf)+.085,z-roofDepth/2+(col+.5)*roofDepth/6);
-   dummy.rotation.set(0,0,-side*roofSlope);dummy.scale.set(1,1,roofDepth/6*.93);
-   dummy.updateMatrix();tiles.setMatrixAt(n++,dummy.matrix);
+}const matFlowerA=mat(0xffd977),matFlowerB=mat(0xf3e7ed);ground();const obstacles=[];function house(x,z,w=7,d=6,roof=mats.roof,wall=mats.wall){
+ const h=rr(4.2,5.0),rise=1.85,over=.45,half=w/2+over,depth=d+over*2;
+ box(x,h/2,z,w,h,d,wall);
+ // Roof panels are defined by their actual endpoints, not guessed rotations.
+ function roofPlane(side){
+  const v=new Float32Array([
+   x,h+rise,z-depth/2, x+side*half,h,z-depth/2, x+side*half,h,z+depth/2,
+   x,h+rise,z-depth/2, x+side*half,h,z+depth/2, x,h+rise,z+depth/2]);
+  const geo=new T.BufferGeometry();geo.setAttribute('position',new T.BufferAttribute(v,3));geo.computeVertexNormals();
+  const material=roof.clone();material.side=T.DoubleSide;
+  const m=new T.Mesh(geo,material);m.castShadow=true;m.receiveShadow=true;scene.add(m);
  }
- tiles.instanceMatrix.needsUpdate=true;tiles.castShadow=false;tiles.receiveShadow=true;scene.add(tiles);
-}
-// Painted shutters with diagonal wooden braces at the front windows.
-const shutterMat=new T.MeshStandardMaterial({color:0x507f79,roughness:.86});
-for(const wx of [-w*.27,w*.27])for(const side of [-1,1]){
- const sx=x+wx+side*.76;
- box(sx,h*.68,z+d/2+.12,.28,1.3,.12,shutterMat);
- box(sx,h*.68,z+d/2+.20,.075,1.18,.05,mats.wood2);
- box(sx,h*.68+.43,z+d/2+.21,.28,.07,.07,mats.wood2);
- box(sx,h*.68-.43,z+d/2+.21,.28,.07,.07,mats.wood2);
-}
-// Front porch canopy and tapered support columns; no additional collision geometry.
-const porchZ=z+d/2+.62;
-box(x,h*.48+1.58,porchZ,2.8,.18,1.3,mats.wood2);
-for(const side of [-1,1]){
- const cx=x+side*1.24;
- const post=mesh(new T.CylinderGeometry(.105,.16,h*.48+1.45,8),mats.wood2,cx,(h*.48+1.45)/2,porchZ+.49);
- post.castShadow=true;
- box(cx,h*.48+1.49,porchZ+.49,.38,.17,.38,mats.stone);
-}
-// Small crest below the ridge makes each facade recognizable at distance.
-sphere(x,h+roofRise*.48,z+d/2+.08,.19,mats.gold);
-obstacles.push({x,z:z+.38,halfW:w/2+.13,halfD:d/2+.5,type:"house"});return h}house(-15,-16,9,8,mats.roof,mats.wall);house(17,-20,8,8,mats.roof2,mats.wall2);house(-19,20,9,7,mats.roof2,mats.wall);house(19,20,8,7,mats.roof,mats.wall2);house(-33,0,7,7,mats.roof,mats.wall);house(34,2,8,8,mats.roof2,mats.wall2);// 5.4: irregular multi-layer tree crowns and visible branching; reuse shared geometry.
+ roofPlane(-1);roofPlane(1);
+ // Gable triangle is local to the actual house position.
+ for(const side of [-1,1]){
+  const fz=z+side*(d/2+.012);
+  const g=new T.BufferGeometry();g.setAttribute('position',new T.BufferAttribute(new Float32Array([x-w/2,h,fz,x+w/2,h,fz,x,h+rise,fz]),3));g.computeVertexNormals();
+  const m=new T.Mesh(g,new T.MeshStandardMaterial({color:0xcda87b,roughness:1,side:T.DoubleSide}));m.receiveShadow=true;scene.add(m);
+ }
+ // Ridge, fascia and front door: all anchored to the roof or facade.
+ box(x,h+rise,z,.22,.18,depth+.05,mats.wood2);
+ for(const side of [-1,1])box(x+side*half,h-.04,z,.16,.18,depth,mats.wood2);
+ box(x,.25,z,w+.2,.5,d+.2,mats.stone);
+ box(x,h*.29,z+d/2+.055,1.35,2.45,.12,mats.wood2);
+ box(x+.46,h*.26,z+d/2+.145,.09,.09,.06,mats.gold);
+ for(const wx of [-w*.28,w*.28]){
+  box(x+wx,h*.64,z+d/2+.06,1.05,1.06,.12,mats.glass);
+  box(x+wx,h*.64,z+d/2+.14,.09,1.17,.13,mats.wood2);
+  box(x+wx,h*.64,z+d/2+.15,1.16,.09,.13,mats.wood2);
+  for(const side of [-1,1])box(x+wx+side*.66,h*.64,z+d/2+.09,.22,1.1,.10,mats.wood2);
+ }
+ // Chimney emerges vertically through the roof, with no floating struts.
+ const cx=x+w*.24,cz=z-d*.12;
+ box(cx,h+rise+.20,cz,.63,.95,.65,mats.wood2);
+ box(cx,h+rise+.73,cz,.83,.15,.84,mats.stone);
+ for(let k=0;k<2;k++)box(x,.12+k*.16,z+d/2+.37+k*.28,2.0-k*.12,.24,.48,mats.stone);
+ obstacles.push({x,z:z+.38,halfW:w/2+.13,halfD:d/2+.5,type:"house"});return h
+}house(-15,-16,9,8,mats.roof,mats.wall);house(17,-20,8,8,mats.roof2,mats.wall2);house(-19,20,9,7,mats.roof2,mats.wall);house(19,20,8,7,mats.roof,mats.wall2);house(-33,0,7,7,mats.roof,mats.wall);house(34,2,8,8,mats.roof2,mats.wall2);// 5.4: irregular multi-layer tree crowns and visible branching; reuse shared geometry.
 const crownGeo=new T.IcosahedronGeometry(1,1);
 const branchGeo=new T.CylinderGeometry(.11,.17,1,6);
 function tree(x,z,s=1){
@@ -375,7 +344,7 @@ for(const [xx,yy,zz] of [[.60,-.40,-.54],[.28,-.40,-.49],[.43,-.58,-.27]]){
 // 5.0: cloth sling from stock to handguard.
 const sling=piece(new T.CylinderGeometry(.017,.017,.85,5),leather,.27,-.62,-.73,1,1,1);
 sling.rotation.x=.66;sling.rotation.z=-.24;
-gun.position.set(.12,-.02,0)}gunBuild();
+gun.position.set(.20,-.19,-.18);gun.scale.setScalar(.68)}gunBuild();
 const muzzle=new T.Mesh(new T.OctahedronGeometry(.24,0),new T.MeshBasicMaterial({color:0xffd873,transparent:true,opacity:0,depthWrite:false}));
 muzzle.position.set(.43,-.32,-1.54);gun.add(muzzle);let muzzleTime=0;
 // Reusable lightweight impact particles; finite lifetimes and bounded count.
@@ -389,7 +358,7 @@ let step=advance(b.x,b.z,nx-b.x,nz-b.z,.48);
 for(const other of bots){if(other===b||!other.alive)continue;let sx=step[0]-other.x,sz=step[1]-other.z,sd=Math.hypot(sx,sz);if(sd<.96){let ux=sd>.0001?sx/sd:1,uz=sd>.0001?sz/sd:0;let proposed=[other.x+ux*.97,other.z+uz*.97];if(safe(proposed[0],proposed[1],.48)&&Math.hypot(proposed[0]-b.x,proposed[1]-b.z)<sp*dt+.2)step=proposed;else step=[b.x,b.z]}}if(Math.hypot(step[0]-b.x,step[1]-b.z)<.01)b.turn=0;const didMove=Math.hypot(step[0]-b.x,step[1]-b.z)>.004;b.x=step[0];b.z=step[1];b.walk+=dt*sp*3;const stride= didMove?1:0;for(const limb of b.limbs){const legGoal=Math.sin(b.walk)*.48*limb.side*stride,armGoal=-Math.sin(b.walk)*.35*limb.side*stride;limb.leg.rotation.x+=(legGoal-limb.leg.rotation.x)*Math.min(1,dt*12);limb.arm.rotation.x+=(armGoal-limb.arm.rotation.x)*Math.min(1,dt*12)}b.g.position.set(b.x,Math.abs(Math.sin(b.walk))*.035*stride,b.z);const targetAngle=Math.atan2(dx,dz);let angleDelta=Math.atan2(Math.sin(targetAngle-b.g.rotation.y),Math.cos(targetAngle-b.g.rotation.y));b.g.rotation.y+=Math.max(-dt*4,Math.min(dt*4,angleDelta));b.shot-=dt;if(dist<19&&b.shot<=0&&clearSight(b.x,b.z,px,pz)){b.shot=rr(1.3,2.7);if(rand()<.45)damage(rr(5,11))}}}function frame(dt){muzzleTime=Math.max(0,muzzleTime-dt);muzzle.material.opacity=muzzleTime>0?Math.min(.95,muzzleTime*15):0;animateParticles(dt);elapsed+=dt;seconds-=dt;if(seconds<=0){seconds=0;end();return}let f=Math.sin(yaw),c=Math.cos(yaw),speed=6.7;let ix=moveX,iy=moveY,mag=Math.hypot(ix,iy);if(mag>1){ix/=mag;iy/=mag}let dx=(-f*(-iy)+c*ix)*speed*dt,dz=(-c*(-iy)-f*ix)*speed*dt;let next=advance(px,pz,dx,dz,.43);
 // A capsule-like horizontal clearance against bots, independent of the static level collision.
 for(const b of bots){if(!b.alive)continue;let bx=next[0]-b.x,bz=next[1]-b.z,bd=Math.hypot(bx,bz);if(bd<.9){let ux=bd>.0001?bx/bd:1,uz=bd>.0001?bz/bd:0;let candidate=[b.x+ux*.91,b.z+uz*.91];next=safe(candidate[0],candidate[1],.43)?candidate:[px,pz]}}
-px=next[0];pz=next[1];vy-=17*dt;jump+=vy*dt;if(jump<0){jump=0;vy=0}followSunShadows(px,pz);camera.position.set(px,1.75+jump+(Math.abs(moveX)+Math.abs(moveY)>0?.035*Math.sin(elapsed*13):0),pz);sky.position.copy(camera.position);camera.rotation.order='YXZ';camera.rotation.y=yaw;camera.rotation.x=vertical;recoil+=(0-recoil)*Math.min(1,dt*13);gun.position.z+=(0-gun.position.z)*Math.min(1,dt*12);gun.rotation.x=recoil*.65+Math.sin(elapsed*11)*.008*Math.min(1,mag);gun.rotation.z=Math.sin(elapsed*10)*.018*Math.min(1,mag);gun.position.y=-Math.abs(Math.sin(elapsed*11))*.013*Math.min(1,mag);updateBots(dt);for(const cl of clouds){cl.position.x+=dt*.24;if(cl.position.x>px+95)cl.position.x=px-95}if(fire)shoot();hud()}let prev=performance.now();function loop(t){requestAnimationFrame(loop);const cross=$('cross');if(cross)cross.style.color=performance.now()<hitMarkerUntil?'#ffe16c':'#fff';let dt=Math.min(.05,(t-prev)/1000);prev=t;if(running&&!paused)frame(dt);else if(!running){for(let c of clouds)c.position.x+=dt*.15}sky.position.copy(camera.position);renderer.render(scene,camera);
+px=next[0];pz=next[1];vy-=17*dt;jump+=vy*dt;if(jump<0){jump=0;vy=0}followSunShadows(px,pz);camera.position.set(px,1.75+jump+(Math.abs(moveX)+Math.abs(moveY)>0?.035*Math.sin(elapsed*13):0),pz);sky.position.copy(camera.position);camera.rotation.order='YXZ';camera.rotation.y=yaw;camera.rotation.x=vertical;recoil+=(0-recoil)*Math.min(1,dt*13);gun.position.z+=(0-gun.position.z)*Math.min(1,dt*12);gun.rotation.x=recoil*.65+Math.sin(elapsed*11)*.008*Math.min(1,mag);gun.rotation.z=Math.sin(elapsed*10)*.018*Math.min(1,mag);gun.position.y=-.19-Math.abs(Math.sin(elapsed*11))*.009*Math.min(1,mag);updateBots(dt);for(const cl of clouds){cl.position.x+=dt*.24;if(cl.position.x>px+95)cl.position.x=px-95}if(fire)shoot();hud()}let prev=performance.now();function loop(t){requestAnimationFrame(loop);const cross=$('cross');if(cross)cross.style.color=performance.now()<hitMarkerUntil?'#ffe16c':'#fff';let dt=Math.min(.05,(t-prev)/1000);prev=t;if(running&&!paused)frame(dt);else if(!running){for(let c of clouds)c.position.x+=dt*.15}sky.position.copy(camera.position);renderer.render(scene,camera);
 // Adapt GPU resolution conservatively after a representative sample of active gameplay.
 if(running&&!paused){frameCount++;frameTotal+=dt;if(frameCount>=180){const fps=frameCount/Math.max(.01,frameTotal);if(fps<28&&!qualityReduced){qualityReduced=true;renderer.setPixelRatio(Math.min(devicePixelRatio||1,1));sun.shadow.mapSize.set(512,512);sun.shadow.map?.dispose();sun.shadow.needsUpdate=true;toast('Оптимизация графики для устройства')}frameCount=0;frameTotal=0}}}
 requestAnimationFrame(loop);let frameCount=0,frameTotal=0,qualityReduced=false;addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setPixelRatio(Math.min(devicePixelRatio||1,qualityReduced?1:1.5));renderer.setSize(innerWidth,innerHeight)});function look(dx,dy){yaw-=dx*.004*settings.sensitivity;vertical=Math.max(-1.2,Math.min(1.2,vertical-dy*.0035*settings.sensitivity))}const settings={sensitivity:1};try{const v=Number(localStorage.getItem('vetkoboy_sensitivity'));if(v>=.25&&v<=2.5)settings.sensitivity=v}catch(e){}function saveSettings(){try{localStorage.setItem('vetkoboy_sensitivity',String(settings.sensitivity))}catch(e){}}async function enterFullscreen(){try{if(!document.fullscreenElement&&document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen()}catch(e){}try{if(screen.orientation&&screen.orientation.lock)await screen.orientation.lock('landscape')}catch(e){}}$('fullscreen').onclick=enterFullscreen;const stick=$('stick'),nub=$('nub');function stickMove(e){e.preventDefault();let r=stick.getBoundingClientRect(),x=e.clientX-(r.left+r.width/2),y=e.clientY-(r.top+r.height/2),len=Math.hypot(x,y),max=r.width*.34;if(len>max){x*=max/len;y*=max/len}const dead=.085;if(Math.hypot(x,y)<max*dead){moveX=0;moveY=0}else{moveX=x/max;moveY=y/max}nub.style.transform=`translate(${x}px,${y}px)`}stick.addEventListener('pointerdown',e=>{stickId=e.pointerId;stick.setPointerCapture(e.pointerId);stickMove(e)});stick.addEventListener('pointermove',e=>{if(e.pointerId===stickId)stickMove(e)});function stickUp(e){if(e.pointerId===stickId){stickId=null;moveX=moveY=0;nub.style.transform=''}}stick.addEventListener('pointerup',stickUp);stick.addEventListener('pointercancel',stickUp);const cv=$('game');cv.addEventListener('pointerdown',e=>{if(!running||paused)return;dragId=e.pointerId;lastTouchX=e.clientX;lastTouchY=e.clientY;cv.setPointerCapture(e.pointerId)});cv.addEventListener('pointermove',e=>{if(dragId!==e.pointerId||!running)return;look(e.clientX-lastTouchX,e.clientY-lastTouchY);lastTouchX=e.clientX;lastTouchY=e.clientY});cv.addEventListener('pointerup',e=>{if(dragId===e.pointerId)dragId=null});cv.addEventListener('pointercancel',e=>{if(dragId===e.pointerId)dragId=null});$('shoot').addEventListener('pointerdown',e=>{e.preventDefault();fire=true;shoot()});for(let ev of ['pointerup','pointercancel','pointerleave'])$('shoot').addEventListener(ev,()=>fire=false);$('jump').onclick=()=>{if(jump===0)vy=7};$('reload').onclick=reload;$('pause').onclick=()=>{paused=!paused;$('pause').textContent=paused?'▶':'Ⅱ';toast(paused?'Пауза':'Продолжаем')};$('play').onclick=start;$('again').onclick=start;$('toMenu').onclick=showMenu;const keys={};addEventListener('keydown',e=>{keys[e.code]=true;if(e.code==='Space'&&jump===0)vy=7;if(e.code==='KeyR')reload();if(e.code==='Escape'&&running)$('pause').click();if(e.code==='KeyF')shoot()});addEventListener('keyup',e=>{keys[e.code]=false});setInterval(()=>{if(stickId===null){moveX=(keys.KeyD?1:0)-(keys.KeyA?1:0);moveY=(keys.KeyS?1:0)-(keys.KeyW?1:0)}if(keys.ArrowLeft)yaw+=.06;if(keys.ArrowRight)yaw-=.06;if(keys.ArrowUp)vertical+=.03;if(keys.ArrowDown)vertical-=.03},30);cv.addEventListener('click',()=>{if(!('ontouchstart'in window)&&running&&document.pointerLockElement!==cv)cv.requestPointerLock?.()});addEventListener('mousemove',e=>{if(document.pointerLockElement===cv)look(e.movementX,e.movementY)});document.addEventListener('visibilitychange',()=>{if(document.hidden&&running){paused=true;$('pause').textContent='▶'}});$('loading').classList.add('hide');showMenu();})();
