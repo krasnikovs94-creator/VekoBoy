@@ -97,41 +97,53 @@ function ground(){
    hill.rotation.y=angle;hill.castShadow=false;hill.receiveShadow=false;scene.add(hill);
  }
 }const matFlowerA=mat(0xffd977),matFlowerB=mat(0xf3e7ed);ground();const obstacles=[];function house(x,z,w=7,d=6,roof=mats.roof,wall=mats.wall){
- const h=rr(4.2,5.0),rise=1.85,over=.45,half=w/2+over,depth=d+over*2;
+ const h=4.55,rise=1.5,over=.18;
+ // All roof and house coordinates share the same origin. No rotated roof slabs.
  box(x,h/2,z,w,h,d,wall);
- // Closed, solid roof slabs. Each is a single connected rectangular prism,
- // centered on the exact line between ridge and eave (no loose decorative sticks).
- function roofSlab(side){
-   const length=Math.hypot(half,rise);
-   const slab=new T.Mesh(new T.BoxGeometry(length+.10,.23,depth),roof);
-   slab.position.set(x+side*half/2,h+rise/2,z);
-   slab.rotation.z=-side*Math.atan2(rise,half);
-   slab.castShadow=true;slab.receiveShadow=true;scene.add(slab);
+ const hw=w/2,hd=d/2;
+ // Solid gable wall: the triangle touches the wall at y=h.
+ const gableMat=new T.MeshStandardMaterial({color:0xd9b78a,roughness:1,side:T.DoubleSide});
+ for(const faceZ of [z-hd-.012,z+hd+.012]){
+   const geo=new T.BufferGeometry();
+   geo.setAttribute('position',new T.Float32BufferAttribute([
+     x-hw,h,faceZ, x+hw,h,faceZ, x,h+rise,faceZ
+   ],3));geo.computeVertexNormals();
+   const gable=new T.Mesh(geo,gableMat);gable.castShadow=true;gable.receiveShadow=true;scene.add(gable);
  }
- roofSlab(-1);roofSlab(1);
- // Gable triangle is local to the actual house position.
- for(const side of [-1,1]){
-  const fz=z+side*(d/2+.012);
-  const g=new T.BufferGeometry();g.setAttribute('position',new T.BufferAttribute(new Float32Array([x-w/2,h,fz,x+w/2,h,fz,x,h+rise,fz]),3));g.computeVertexNormals();
-  const m=new T.Mesh(g,new T.MeshStandardMaterial({color:0xcda87b,roughness:1,side:T.DoubleSide}));m.receiveShadow=true;scene.add(m);
+ // Each roof slope is a triangle strip made from explicit world-space corners.
+ // The eave is at y=h, and both slopes meet exactly at y=h+rise.
+ const eave=hw+over, zFront=z-hd-over, zBack=z+hd+over;
+ const ridgeY=h+rise, eaveY=h-rise*over/hw-.035;
+ const vertices=[
+   // Left slope (front and back), two triangles
+   x-eave,eaveY,zFront, x,ridgeY,zFront, x,ridgeY,zBack,
+   x-eave,eaveY,zFront, x,ridgeY,zBack, x-eave,eaveY,zBack,
+   // Right slope
+   x,ridgeY,zFront, x+eave,eaveY,zFront, x+eave,eaveY,zBack,
+   x,ridgeY,zFront, x+eave,eaveY,zBack, x,ridgeY,zBack
+ ];
+ const roofGeo=new T.BufferGeometry();
+ roofGeo.setAttribute('position',new T.Float32BufferAttribute(vertices,3));
+ roofGeo.computeVertexNormals();
+ const roofMat=roof.clone();
+ roofMat.side=T.DoubleSide;roofMat.roughness=.92;
+ const roofMesh=new T.Mesh(roofGeo,roofMat);
+ roofMesh.castShadow=true;roofMesh.receiveShadow=true;scene.add(roofMesh);
+ // Fascia at the eaves: short strips, physically attached to the roof edges.
+ for(const sign of [-1,1]){
+   box(x+sign*eave,eaveY-.085,z,.13,.18,d+2*over,roofMat);
  }
- // No free-standing roof beams, eaves or decorative struts.
  box(x,.25,z,w+.2,.5,d+.2,mats.stone);
  box(x,h*.29,z+d/2+.055,1.35,2.45,.12,mats.wood2);
  box(x+.46,h*.26,z+d/2+.145,.09,.09,.06,mats.gold);
  for(const wx of [-w*.28,w*.28]){
-  box(x+wx,h*.64,z+d/2+.06,1.05,1.06,.12,mats.glass);
-  box(x+wx,h*.64,z+d/2+.14,.09,1.17,.13,mats.wood2);
-  box(x+wx,h*.64,z+d/2+.15,1.16,.09,.13,mats.wood2);
-  for(const side of [-1,1])box(x+wx+side*.66,h*.64,z+d/2+.09,.22,1.1,.10,mats.wood2);
+   box(x+wx,h*.64,z+d/2+.06,1.05,1.06,.12,mats.glass);
+   box(x+wx,h*.64,z+d/2+.14,.09,1.17,.13,mats.wood2);
+   box(x+wx,h*.64,z+d/2+.15,1.16,.09,.13,mats.wood2);
  }
- // Chimney intersects the roof instead of starting above the sloping surface.
- const cx=x+w*.24,cz=z-d*.12;
- const chimneyTop=h+rise+.9,chimneyBottom=h-.35;
- box(cx,(chimneyTop+chimneyBottom)/2,cz,.63,chimneyTop-chimneyBottom,.65,mats.wood2);
- box(cx,chimneyTop+.07,cz,.83,.15,.84,mats.stone);
- for(let k=0;k<2;k++)box(x,.12+k*.16,z+d/2+.37+k*.28,2.0-k*.12,.24,.48,mats.stone);
- obstacles.push({x,z:z+.38,halfW:w/2+.13,halfD:d/2+.5,type:"house"});return h
+ // No separate beams or chimneys until roof placement is visually verified.
+ obstacles.push({x,z:z+.38,halfW:w/2+.13,halfD:d/2+.5,type:"house"});
+ return h;
 }house(-15,-16,9,8,mats.roof,mats.wall);house(17,-20,8,8,mats.roof2,mats.wall2);house(-19,20,9,7,mats.roof2,mats.wall);house(19,20,8,7,mats.roof,mats.wall2);house(-33,0,7,7,mats.roof,mats.wall);house(34,2,8,8,mats.roof2,mats.wall2);// 5.4: irregular multi-layer tree crowns and visible branching; reuse shared geometry.
 const crownGeo=new T.IcosahedronGeometry(1,1);
 const branchGeo=new T.CylinderGeometry(.11,.17,1,6);
