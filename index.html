@@ -97,53 +97,53 @@ function ground(){
    hill.rotation.y=angle;hill.castShadow=false;hill.receiveShadow=false;scene.add(hill);
  }
 }const matFlowerA=mat(0xffd977),matFlowerB=mat(0xf3e7ed);ground();const obstacles=[];function house(x,z,w=7,d=6,roof=mats.roof,wall=mats.wall){
- const h=4.55,rise=1.5,over=.18;
- // All roof and house coordinates share the same origin. No rotated roof slabs.
- box(x,h/2,z,w,h,d,wall);
- const hw=w/2,hd=d/2;
- // Solid gable wall: the triangle touches the wall at y=h.
- const gableMat=new T.MeshStandardMaterial({color:0xd9b78a,roughness:1,side:T.DoubleSide});
- for(const faceZ of [z-hd-.012,z+hd+.012]){
-   const geo=new T.BufferGeometry();
-   geo.setAttribute('position',new T.Float32BufferAttribute([
-     x-hw,h,faceZ, x+hw,h,faceZ, x,h+rise,faceZ
-   ],3));geo.computeVertexNormals();
-   const gable=new T.Mesh(geo,gableMat);gable.castShadow=true;gable.receiveShadow=true;scene.add(gable);
+ // 6.2: house, walls and roof are all attached to ONE local coordinate group.
+ const houseGroup=new T.Group();
+ houseGroup.position.set(x,0,z);scene.add(houseGroup);
+ const h=4.55, rise=1.55, eave=.23, hw=w/2, hd=d/2;
+ function piece(geo,material,lx,ly,lz,sx=1,sy=1,sz=1){
+   const p=new T.Mesh(geo,material);
+   p.position.set(lx,ly,lz);p.scale.set(sx,sy,sz);
+   p.castShadow=true;p.receiveShadow=true;houseGroup.add(p);return p;
  }
- // Each roof slope is a triangle strip made from explicit world-space corners.
- // The eave is at y=h, and both slopes meet exactly at y=h+rise.
- const eave=hw+over, zFront=z-hd-over, zBack=z+hd+over;
- const ridgeY=h+rise, eaveY=h-rise*over/hw-.035;
- const vertices=[
-   // Left slope (front and back), two triangles
-   x-eave,eaveY,zFront, x,ridgeY,zFront, x,ridgeY,zBack,
-   x-eave,eaveY,zFront, x,ridgeY,zBack, x-eave,eaveY,zBack,
-   // Right slope
-   x,ridgeY,zFront, x+eave,eaveY,zFront, x+eave,eaveY,zBack,
-   x,ridgeY,zFront, x+eave,eaveY,zBack, x,ridgeY,zBack
- ];
- const roofGeo=new T.BufferGeometry();
- roofGeo.setAttribute('position',new T.Float32BufferAttribute(vertices,3));
- roofGeo.computeVertexNormals();
- const roofMat=roof.clone();
- roofMat.side=T.DoubleSide;roofMat.roughness=.92;
- const roofMesh=new T.Mesh(roofGeo,roofMat);
- roofMesh.castShadow=true;roofMesh.receiveShadow=true;scene.add(roofMesh);
- // Fascia at the eaves: short strips, physically attached to the roof edges.
- for(const sign of [-1,1]){
-   box(x+sign*eave,eaveY-.085,z,.13,.18,d+2*over,roofMat);
+ piece(cube,wall,0,h/2,0,w,h,d);
+ piece(cube,mats.stone,0,.22,0,w+.15,.44,d+.15);
+ // Solid triangular end walls, both ends of the building.
+ const gableMat=wall.clone();gableMat.side=T.DoubleSide;
+ for(const frontZ of [-hd,hd]){
+   const shape=new T.BufferGeometry();
+   shape.setAttribute('position',new T.Float32BufferAttribute([
+      -hw,h,frontZ, hw,h,frontZ, 0,h+rise,frontZ
+   ],3));shape.computeVertexNormals();
+   piece(shape,gableMat,0,0,0);
  }
- box(x,.25,z,w+.2,.5,d+.2,mats.stone);
- box(x,h*.29,z+d/2+.055,1.35,2.45,.12,mats.wood2);
- box(x+.46,h*.26,z+d/2+.145,.09,.09,.06,mats.gold);
- for(const wx of [-w*.28,w*.28]){
-   box(x+wx,h*.64,z+d/2+.06,1.05,1.06,.12,mats.glass);
-   box(x+wx,h*.64,z+d/2+.14,.09,1.17,.13,mats.wood2);
-   box(x+wx,h*.64,z+d/2+.15,1.16,.09,.13,mats.wood2);
+ // Local-space roof slopes; both share the same ridge. No world coordinates in vertices.
+ const edgeY=h-(rise/hw)*eave;
+ const ez=hd+eave, ex=hw+eave;
+ function roofSlope(sign){
+   const geometry=new T.BufferGeometry();
+   const coords=[
+     0,h+rise,-ez, sign*ex,edgeY,-ez, sign*ex,edgeY,ez,
+     0,h+rise,-ez, sign*ex,edgeY,ez, 0,h+rise,ez
+   ];
+   geometry.setAttribute('position',new T.Float32BufferAttribute(coords,3));
+   geometry.computeVertexNormals();
+   const material=roof.clone();material.side=T.DoubleSide;
+   piece(geometry,material,0,0,0);
+   // Connected trim follows the lower roof edge.
+   piece(cube,material,sign*ex,edgeY-.07,0,.12,.14,d+eave*2);
  }
- // No separate beams or chimneys until roof placement is visually verified.
+ roofSlope(-1);roofSlope(1);
+ // A front door and two windows are anchored directly to the front wall.
+ piece(cube,mats.wood2,0,1.28,hd+.07,1.25,2.42,.14);
+ piece(ball,mats.gold,.43,1.20,hd+.16,.065,.065,.065);
+ for(const wx of [-w*.30,w*.30]){
+   piece(cube,mats.glass,wx,2.9,hd+.07,.94,1.05,.12);
+   piece(cube,mats.wood2,wx,2.9,hd+.15,.08,1.15,.12);
+   piece(cube,mats.wood2,wx,2.9,hd+.15,1.05,.08,.12);
+ }
  obstacles.push({x,z:z+.38,halfW:w/2+.13,halfD:d/2+.5,type:"house"});
- return h;
+ return houseGroup;
 }house(-15,-16,9,8,mats.roof,mats.wall);house(17,-20,8,8,mats.roof2,mats.wall2);house(-19,20,9,7,mats.roof2,mats.wall);house(19,20,8,7,mats.roof,mats.wall2);house(-33,0,7,7,mats.roof,mats.wall);house(34,2,8,8,mats.roof2,mats.wall2);// 5.4: irregular multi-layer tree crowns and visible branching; reuse shared geometry.
 const crownGeo=new T.IcosahedronGeometry(1,1);
 const branchGeo=new T.CylinderGeometry(.11,.17,1,6);
